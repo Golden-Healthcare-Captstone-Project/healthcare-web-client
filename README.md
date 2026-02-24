@@ -38,6 +38,7 @@ ng build
 Run these commands in your powershell after cloning the repo:
 - install dependencies (npm install)
 - Start the dev server (npm start or npx ng serve)
+- The server will run on localhost, you can view it on a browser by copying the url (in the terminal) to your browser
 
 This will compile your project and store the build artifacts in the `dist/` directory. By default, the production build optimizes your application for performance and speed.
 
