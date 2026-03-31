@@ -1,9 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
+import { SocialMediaLinksComponent } from './components/social-media-links/social-media-links.component';
 
 @Component({
   selector: 'app-root',
-  imports: [CommonModule],
+  imports: [CommonModule, SocialMediaLinksComponent],
   templateUrl: './app.component.html',
   styleUrl: './app.component.css'
 })
