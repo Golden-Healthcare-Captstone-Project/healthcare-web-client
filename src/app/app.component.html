@@ -20,7 +20,13 @@
         <a href="#services" class="nav-link">Care Services</a>
         <a href="#life" class="nav-link">Life at Golden</a>
         <a href="#family" class="nav-link">For Families</a>
-        <a href="#contact" class="nav-link nav-cta">Book a Visit</a>
+        <button
+          type="button"
+          class="nav-link nav-cta nav-cta-btn"
+          (click)="openVisitModal()"
+        >
+          Book a Visit
+        </button>
       </nav>
     </div>
   </header>
@@ -218,4 +224,106 @@
       </div>
     </div>
   </footer>
+
+  <div
+    class="modal-overlay"
+    *ngIf="isVisitModalOpen"
+    (click)="closeVisitModal()"
+    aria-hidden="true"
+  >
+    <section
+      class="visit-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Book a visit"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        type="button"
+        class="modal-close"
+        aria-label="Close booking dialog"
+        (click)="closeVisitModal()"
+      >
+        ×
+      </button>
+
+      <div *ngIf="visitStep === 'choice'" class="modal-content">
+        <h2>Book a Visit</h2>
+        <p>
+          Welcome! Please tell us if you are a new client or an existing
+          client.
+        </p>
+        <div class="modal-actions">
+          <button
+            type="button"
+            class="btn btn-primary"
+            (click)="selectVisitPath('new-client')"
+          >
+            I am a New Client
+          </button>
+          <button
+            type="button"
+            class="btn btn-outline"
+            (click)="selectVisitPath('existing-client')"
+          >
+            I am an Existing Client
+          </button>
+        </div>
+      </div>
+
+      <div *ngIf="visitStep === 'new-client'" class="modal-content">
+        <h2>Consultation Booking (Demo)</h2>
+        <p>
+          Let&rsquo;s schedule a consultation so we can see whether one of our
+          programs is a good fit.
+        </p>
+
+        <form class="modal-form" (submit)="submitConsultation($event)">
+          <div class="field-group">
+            <label for="consultationName">Full name</label>
+            <input id="consultationName" type="text" required />
+          </div>
+          <div class="field-group">
+            <label for="consultationEmail">Email</label>
+            <input id="consultationEmail" type="email" required />
+          </div>
+          <div class="field-group">
+            <label for="consultationDate">Preferred date</label>
+            <input id="consultationDate" type="date" required />
+          </div>
+          <button type="submit" class="btn btn-primary btn-full">
+            Request Consultation
+          </button>
+        </form>
+
+        <p class="modal-feedback" *ngIf="consultationSubmitted">
+          Thanks! This demo request has been captured.
+        </p>
+
+        <button type="button" class="btn btn-outline" (click)="backToVisitChoice()">
+          Back
+        </button>
+      </div>
+
+      <div *ngIf="visitStep === 'existing-client'" class="modal-content">
+        <h2>Log In (Demo)</h2>
+        <p>
+          Existing clients are guided directly to login. Consultation booking is
+          only for new clients.
+        </p>
+        <p class="modal-feedback">
+          Demo only: login is not implemented yet.
+        </p>
+
+        <div class="modal-actions modal-actions-inline">
+          <button type="button" class="btn btn-primary btn-full" disabled>
+            Continue to Login (Coming Soon)
+          </button>
+          <button type="button" class="btn btn-outline" (click)="backToVisitChoice()">
+            Back
+          </button>
+        </div>
+      </div>
+    </section>
+  </div>
 </div>

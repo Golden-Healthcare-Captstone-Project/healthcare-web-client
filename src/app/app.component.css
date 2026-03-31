@@ -112,6 +112,12 @@
   font-weight: 500;
 }
 
+.nav-cta-btn {
+  font-family: inherit;
+  font-size: 0.9rem;
+  border: none;
+}
+
 .nav-cta:hover {
   background: #084726;
   color: #fff;
@@ -403,6 +409,71 @@ main {
   color: var(--color-primary);
 }
 
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: grid;
+  place-items: center;
+  z-index: 60;
+  padding: 1rem;
+}
+
+.visit-modal {
+  width: min(100%, 560px);
+  background: var(--color-surface);
+  color: var(--color-text);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+  border: 1px solid rgba(127, 163, 111, 0.4);
+  padding: 1.25rem;
+  position: relative;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.4rem;
+  right: 0.5rem;
+  border: none;
+  background: transparent;
+  color: var(--color-muted);
+  font-size: 1.4rem;
+  cursor: pointer;
+}
+
+.modal-content h2 {
+  margin: 0 0 0.5rem;
+  color: var(--color-primary-strong);
+}
+
+.modal-content p {
+  margin: 0 0 1rem;
+  color: var(--color-muted);
+}
+
+.modal-form {
+  margin-bottom: 0.9rem;
+}
+
+.modal-feedback {
+  background: var(--color-primary-soft);
+  color: var(--color-primary-strong);
+  border-radius: 10px;
+  padding: 0.6rem 0.7rem;
+  margin-bottom: 0.8rem;
+  font-size: 0.9rem;
+}
+
+.modal-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+}
+
+.modal-actions-inline {
+  margin-top: 0.25rem;
+}
+
 @media (max-width: 800px) {
   .header-inner {
     align-items: flex-start;
@@ -429,6 +500,10 @@ main {
 
   .contact-inner {
     grid-template-columns: minmax(0, 1fr);
+  }
+
+  .visit-modal {
+    padding: 1rem;
   }
 }
 
