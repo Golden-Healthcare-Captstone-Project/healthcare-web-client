@@ -18,7 +18,7 @@
       </nav>
     </div>
   </header>
-
+  <button (click)="testBackend()">Test Backend</button>
   <main>
     <!-- Hero -->
     <section id="home" class="hero">
@@ -193,11 +193,10 @@
 
           <div class="field-group">
             <label for="needs">What kind of support are you looking for?</label>
-            <textarea id="needs" name="needs" rows="4"></textarea>
-          </div>
+            <textarea #needsInput id="needs" name="needs" rows="4"></textarea>          </div>
 
-          <button type="button" class="btn btn-primary btn-full">
-            Submit (demo only)
+          <button type="button" class="btn btn-primary btn-full" (click)="submitForm(needsInput.value)">
+            Submit
           </button>
         </form>
       </div>
