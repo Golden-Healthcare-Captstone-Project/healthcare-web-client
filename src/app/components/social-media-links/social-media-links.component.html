@@ -1,0 +1,22 @@
+<aside class="social-feed-rail" aria-label="Social media feed previews">
+  <article class="feed-window" *ngFor="let link of links">
+    <header class="feed-header">
+      <strong>{{ link.label }}</strong>
+      <a
+        class="feed-link"
+        [href]="link.url"
+        target="_blank"
+        rel="noopener noreferrer"
+        [attr.aria-label]="'Open ' + link.label + ' page in a new tab'"
+      >
+        Open
+      </a>
+    </header>
+
+    <p class="feed-handle">{{ link.handle }}</p>
+
+    <div class="feed-scroll" [attr.aria-label]="link.label + ' feed preview'">
+      <p *ngFor="let item of link.updates">{{ item }}</p>
+    </div>
+  </article>
+</aside>

@@ -1,0 +1,88 @@
+.social-feed-rail {
+  position: fixed;
+  right: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  display: grid;
+  gap: 0.7rem;
+}
+
+.feed-window {
+  width: 220px;
+  background: #ffffff;
+  border: 1px solid #afc4a4;
+  border-radius: 12px;
+  box-shadow: 0 10px 24px rgba(15, 23, 42, 0.16);
+  padding: 0.6rem;
+}
+
+.feed-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 0.5rem;
+  margin-bottom: 0.2rem;
+  color: #0b5e2f;
+}
+
+.feed-link {
+  font-size: 0.75rem;
+  text-decoration: none;
+  color: #0b5e2f;
+  border: 1px solid #afc4a4;
+  border-radius: 999px;
+  padding: 0.1rem 0.45rem;
+}
+
+.feed-link:hover {
+  background: #0b5e2f;
+  color: #ffffff;
+}
+
+.feed-handle {
+  margin: 0 0 0.4rem;
+  color: #475569;
+  font-size: 0.78rem;
+}
+
+.feed-scroll {
+  max-height: 110px;
+  overflow-y: auto;
+  border: 1px solid #e2e8d5;
+  border-radius: 8px;
+  padding: 0.45rem 0.5rem;
+  background: #f8f8f4;
+}
+
+.feed-scroll p {
+  margin: 0 0 0.45rem;
+  font-size: 0.78rem;
+  color: #334155;
+  line-height: 1.35;
+}
+
+.feed-scroll p:last-child {
+  margin-bottom: 0;
+}
+
+.feed-link:focus-visible {
+  outline: 2px solid #f6c315;
+  outline-offset: 2px;
+}
+
+@media (max-width: 1100px) {
+  .social-feed-rail {
+    right: 0.5rem;
+  }
+
+  .feed-window {
+    width: 190px;
+  }
+}
+
+@media (max-width: 900px) {
+  .social-feed-rail {
+    display: none;
+  }
+}
