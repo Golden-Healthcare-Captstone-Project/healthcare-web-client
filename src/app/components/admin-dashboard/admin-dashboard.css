@@ -2,3 +2,31 @@
 table { width: 100%; border-collapse: collapse; margin-top: 10px; }
 th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
 th { background-color: #f4f4f4; }
+.status-badge {
+  padding: 4px 12px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+/* Color logic */
+.status-pending {
+  background-color: #fef3c7; 
+  color: #92400e;
+}
+
+.status-confirmed {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.status-cancelled {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.updating {
+  opacity: 0.5;
+  pointer-events: none;
+}

@@ -9,11 +9,25 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let item of requests">
-        <td>{{ item.id }}</td>
-        <td>{{ item.status }}</td>
-        <td><button>Update</button></td>
-      </tr>
+      <tr *ngFor="let req of requests">
+  <td>{{ req.patient_name }}</td>
+  <td>
+    <span class="status-badge" 
+          [ngClass]="{
+            'status-pending': req.status === 'pending',
+            'status-confirmed': req.status === 'confirmed',
+            'status-cancelled': req.status === 'cancelled'
+          }">
+      {{ req.status }}
+    </span>
+  </td>
+  <td>
+    <button (click)="updateRequestStatus(req.id, 'confirmed')" 
+            [disabled]="req.status === 'confirmed'">
+      Confirm
+    </button>
+  </td>
+</tr>
     </tbody>
   </table>
 </div>

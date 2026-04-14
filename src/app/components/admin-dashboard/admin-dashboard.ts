@@ -18,4 +18,23 @@ export class AdminDashboard {
       this.requests = data.requests;
     });
   }
+
+  fetchRequests() {
+    this.http.get<any[]>(`${this.apiUrl}/requests`).subscribe(data => {
+      this.requests = data;
+    });
+  }
+
+  updateRequestStatus(requestId: string, newStatus: string) {
+    this.http.patch(`${this.apiUrl}/requests/${requestId}`, { status: newStatus })
+      .subscribe({
+        next: () => {
+          // 2. Refresh the local list to show the new "indicator" color
+          this.fetchRequests();
+          console.log(`Request ${requestId} updated to ${newStatus}`);
+        },
+        error: (err) => console.error('Update failed', err)
+      });
+  }
 }
+
