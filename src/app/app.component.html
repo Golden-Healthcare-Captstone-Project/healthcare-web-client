@@ -236,7 +236,7 @@
 
   <app-social-media-links />
 
-  // Auth Modal for login and signup
+ <!-- Auth Modal for login and signup -->
   <div
     class="modal-overlay"
     *ngIf="isAuthModalOpen"
@@ -261,10 +261,11 @@
 
       <div class="modal-content">
         <h2>{{ authMode === 'login' ? 'Log In' : 'Sign Up' }}</h2>
-        <p>
-          {{ authMode === 'login'
-            ? 'Access your account to manage visits and services.'
-            : 'Create an account to get started with Golden Health Care.' }}
+        <p *ngIf="authMode === 'login'">
+          Access your account to manage visits and services.
+        </p>
+        <p *ngIf="authMode === 'signup'">
+          Don't have an account? Create an account to get started.
         </p>
 
         <div class="auth-mode-switch" aria-label="Authentication mode">
