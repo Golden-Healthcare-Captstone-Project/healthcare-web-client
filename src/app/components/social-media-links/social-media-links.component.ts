@@ -19,7 +19,7 @@ export class SocialMediaLinksComponent {
   readonly links: SocialLink[] = [
     {
       label: 'Facebook',
-      handle: 'Ex: @goldenhealthcare',
+      handle: '@goldenhealthcare',
       url: 'https://www.facebook.com/',
       updates: [
         'Feed placeholder: care team spotlight post.'
@@ -27,7 +27,7 @@ export class SocialMediaLinksComponent {
     },
     {
       label: 'Instagram',
-      handle: 'Ex: @goldenhealthcare',
+      handle: '@goldenhealthcare',
       url: 'https://www.instagram.com/',
       updates: [
         'Feed placeholder: photo highlights from daily activities.',

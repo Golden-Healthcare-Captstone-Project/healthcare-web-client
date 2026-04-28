@@ -12,6 +12,9 @@ import { SocialMediaLinksComponent } from './components/social-media-links/socia
 export class AppComponent {
   title = 'golden-healthcare-web-client';
   readonly currentYear = new Date().getFullYear();
+  isAuthModalOpen = false;
+  authMode: 'login' | 'signup' = 'login';
+  authSubmitted = false;
 
   // Backend API
   constructor(private api: ApiService) {}
@@ -40,6 +43,27 @@ export class AppComponent {
         alert('Something went wrong.');
       }
     });
+  }
+
+  // Auth Modal Logic for login and signup
+  openAuthModal(mode: 'login' | 'signup' = 'login'): void {
+    this.isAuthModalOpen = true;
+    this.authMode = mode;
+    this.authSubmitted = false;
+  }
+
+  closeAuthModal(): void {
+    this.isAuthModalOpen = false;
+  }
+
+  setAuthMode(mode: 'login' | 'signup'): void {
+    this.authMode = mode;
+    this.authSubmitted = false;
+  }
+
+  submitAuth(event: Event): void {
+    event.preventDefault();
+    this.authSubmitted = true;
   }
 
   // Teammate UI (modal logic)

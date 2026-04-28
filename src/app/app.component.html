@@ -15,19 +15,30 @@
         </div> -->
       </div>
 
-      <nav class="main-nav" aria-label="Main navigation">
-        <a href="#home" class="nav-link">Home</a>
-        <a href="#services" class="nav-link">Care Services</a>
-        <a href="#life" class="nav-link">Life at Golden</a>
-        <a href="#family" class="nav-link">For Families</a>
+      <div class="header-actions">
+        <nav class="main-nav" aria-label="Main navigation">
+          <a href="#home" class="nav-link">Home</a>
+          <a href="#services" class="nav-link">Care Services</a>
+          <a href="#life" class="nav-link">Life at Golden</a>
+          <a href="#family" class="nav-link">For Families</a>
+          <button
+            type="button"
+            class="nav-link nav-cta nav-cta-btn"
+            (click)="openVisitModal()"
+          >
+            Book a Visit
+          </button>
+        </nav>
+
         <button
           type="button"
-          class="nav-link nav-cta nav-cta-btn"
-          (click)="openVisitModal()"
+          class="auth-icon-btn"
+          aria-label="Open login and sign up"
+          (click)="openAuthModal()"
         >
-          Book a Visit
+          <span class="auth-icon" aria-hidden="true"></span>
         </button>
-      </nav>
+      </div>
     </div>
   </header>
   <main>
@@ -224,6 +235,86 @@
   </footer>
 
   <app-social-media-links />
+
+  // Auth Modal for login and signup
+  <div
+    class="modal-overlay"
+    *ngIf="isAuthModalOpen"
+    (click)="closeAuthModal()"
+    aria-hidden="true"
+  >
+    <section
+      class="visit-modal auth-modal"
+      role="dialog"
+      aria-modal="true"
+      aria-label="Login and sign up"
+      (click)="$event.stopPropagation()"
+    >
+      <button
+        type="button"
+        class="modal-close"
+        aria-label="Close authentication dialog"
+        (click)="closeAuthModal()"
+      >
+        ×
+      </button>
+
+      <div class="modal-content">
+        <h2>{{ authMode === 'login' ? 'Log In' : 'Sign Up' }}</h2>
+        <p>
+          {{ authMode === 'login'
+            ? 'Access your account to manage visits and services.'
+            : 'Create an account to get started with Golden Health Care.' }}
+        </p>
+
+        <div class="auth-mode-switch" aria-label="Authentication mode">
+          <button
+            type="button"
+            class="auth-mode-btn"
+            [class.auth-mode-btn-active]="authMode === 'login'"
+            (click)="setAuthMode('login')"
+          >
+            Log In
+          </button>
+          <button
+            type="button"
+            class="auth-mode-btn"
+            [class.auth-mode-btn-active]="authMode === 'signup'"
+            (click)="setAuthMode('signup')"
+          >
+            Sign Up
+          </button>
+        </div>
+
+        <form class="modal-form" (submit)="submitAuth($event)">
+          <div class="field-group" *ngIf="authMode === 'signup'">
+            <label for="signupName">Full name</label>
+            <input id="signupName" type="text" required />
+          </div>
+          <div class="field-group">
+            <label for="authEmail">Email</label>
+            <input id="authEmail" type="email" required />
+          </div>
+          <div class="field-group">
+            <label for="authPassword">Password</label>
+            <input id="authPassword" type="password" required />
+          </div>
+          <div class="field-group" *ngIf="authMode === 'signup'">
+            <label for="confirmPassword">Confirm password</label>
+            <input id="confirmPassword" type="password" required />
+          </div>
+
+          <button type="submit" class="btn btn-primary btn-full">
+            {{ authMode === 'login' ? 'Log In' : 'Create Account' }}
+          </button>
+        </form>
+
+        <p class="modal-feedback" *ngIf="authSubmitted">
+          Demo only: {{ authMode === 'login' ? 'login' : 'sign up' }} is not connected yet.
+        </p>
+      </div>
+    </section>
+  </div>
 
   <div
     class="modal-overlay"
