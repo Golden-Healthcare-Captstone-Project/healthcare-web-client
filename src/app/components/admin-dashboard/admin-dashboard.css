@@ -1,31 +1,132 @@
-.dashboard { padding: 20px; font-family: sans-serif; }
-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
-th, td { border: 1px solid #ddd; padding: 8px; text-align: left; }
-th { background-color: #f4f4f4; }
-.status-badge {
-  padding: 4px 12px;
+/* Container & Typography */
+.dashboard { 
+  padding: 20px; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; 
+  color: #333;
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+/* Auth / Login Screen Styles */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 80vh; /* Centers the card vertically */
+}
+
+.login-card {
+  background: white;
+  padding: 30px;
   border-radius: 12px;
-  font-size: 0.85rem;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.input-group {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.input-group input {
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+
+/* Table Styling */
+table { 
+  width: 100%; 
+  border-collapse: collapse; 
+  background: white;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+th, td { 
+  border-bottom: 1px solid #eee; 
+  padding: 12px 15px; 
+  text-align: left; 
+}
+
+th { 
+  background-color: #f8fafc; 
+  color: #64748b;
   font-weight: 600;
-  text-transform: capitalize;
+  text-transform: uppercase;
+  font-size: 0.75rem;
+  letter-spacing: 0.05em;
 }
 
-/* Color logic */
-.status-pending {
-  background-color: #fef3c7; 
-  color: #92400e;
+/* Status Badges */
+.status-badge {
+  padding: 4px 10px;
+  border-radius: 9999px; /* Pill shape */
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
 }
 
-.status-confirmed {
-  background-color: #d1fae5;
-  color: #065f46;
+.status-pending { background-color: #fef3c7; color: #92400e; }
+.status-confirmed { background-color: #d1fae5; color: #065f46; }
+.status-cancelled { background-color: #fee2e2; color: #991b1b; }
+
+/* Buttons & Actions */
+button {
+  cursor: pointer;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 16px;
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
-.status-cancelled {
+.login-btn, .btn-confirm {
+  background-color: #2563eb;
+  color: white;
+}
+
+.login-btn:hover, .btn-confirm:hover:not(:disabled) {
+  background-color: #1d4ed8;
+}
+
+.btn-delete {
   background-color: #fee2e2;
-  color: #991b1b;
+  color: #b91c1c;
+  margin-left: 8px;
 }
 
+.btn-delete:hover {
+  background-color: #fecaca;
+}
+
+button:disabled {
+  background-color: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+}
+
+.refresh-btn {
+  background-color: #f1f5f9;
+  color: #475569;
+}
+
+.refresh-btn:hover {
+  background-color: #e2e8f0;
+}
+
+/* Utility */
 .updating {
   opacity: 0.5;
   pointer-events: none;
