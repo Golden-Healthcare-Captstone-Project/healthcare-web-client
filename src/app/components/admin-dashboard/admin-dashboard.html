@@ -1,33 +1,67 @@
-<div class="dashboard">
-  <h2>Pending Service Requests</h2>
+<div *ngIf="!isAuthorized" class="login-container">
+  <div class="login-card">
+    <h2>Clinic Admin Access</h2>
+    <p>Please enter the administrator password to view requests.</p>
+    
+    <div class="input-group">
+      <input 
+        type="password" 
+        [(ngModel)]="password" 
+        (keyup.enter)="login()" 
+        placeholder="Enter Password"
+      >
+      <button (click)="login()" class="login-btn">Unlock</button>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="isAuthorized" class="dashboard">
+  <div class="dashboard-header">
+    <h2>Pending Service Requests</h2>
+    <button (click)="fetchRequests()" class="refresh-btn">Refresh List</button>
+  </div>
+
   <table>
     <thead>
       <tr>
-        <th>ID</th>
-        <th>Status</th>
-        <th>Action</th>
+        <th>Patient Name</th> <th>Status</th>
+        <th>Actions</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let req of requests">
-  <td>{{ req.patient_name }}</td>
-  <td>
-    <span class="status-badge" 
-          [ngClass]="{
-            'status-pending': req.status === 'pending',
-            'status-confirmed': req.status === 'confirmed',
-            'status-cancelled': req.status === 'cancelled'
-          }">
-      {{ req.status }}
-    </span>
-  </td>
-  <td>
-    <button (click)="updateRequestStatus(req.id, 'confirmed')" 
-            [disabled]="req.status === 'confirmed'">
-      Confirm
-    </button>
-  </td>
-</tr>
+        <td>{{ req.patient_name }}</td>
+        <td>
+          <span class="status-badge" 
+                [ngClass]="{
+                  'status-pending': req.status === 'pending',
+                  'status-confirmed': req.status === 'confirmed',
+                  'status-cancelled': req.status === 'cancelled'
+                }">
+            {{ req.status }}
+          </span>
+        </td>
+        <td class="action-buttons">
+          <button 
+            (click)="updateRequestStatus(req.id, 'confirmed')" 
+            [disabled]="req.status === 'confirmed'"
+            class="btn-confirm"
+          >
+            Confirm
+          </button>
+
+          <button 
+            (click)="deleteRequest(req.id)" 
+            class="btn-delete"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
     </tbody>
   </table>
+
+  <div *ngIf="requests.length === 0" class="empty-state">
+    <p>No service requests found.</p>
+  </div>
 </div>
