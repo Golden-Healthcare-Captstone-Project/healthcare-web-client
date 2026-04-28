@@ -1,0 +1,33 @@
+<div class="dashboard">
+  <h2>Pending Service Requests</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Status</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let req of requests">
+  <td>{{ req.patient_name }}</td>
+  <td>
+    <span class="status-badge" 
+          [ngClass]="{
+            'status-pending': req.status === 'pending',
+            'status-confirmed': req.status === 'confirmed',
+            'status-cancelled': req.status === 'cancelled'
+          }">
+      {{ req.status }}
+    </span>
+  </td>
+  <td>
+    <button (click)="updateRequestStatus(req.id, 'confirmed')" 
+            [disabled]="req.status === 'confirmed'">
+      Confirm
+    </button>
+  </td>
+</tr>
+    </tbody>
+  </table>
+</div>
