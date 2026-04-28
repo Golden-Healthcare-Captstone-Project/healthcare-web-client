@@ -1,40 +1,78 @@
-import { Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { Component, OnInit } from '@angular/core';
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-admin-dashboard',
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './admin-dashboard.html',
   styleUrl: './admin-dashboard.css',
 })
-export class AdminDashboard {
+export class AdminDashboard implements OnInit{
   requests: any[] = [];
-  apiUrl = 'http://healthcare-api-server.vercel.app/api/admin/dashboard';
+  isAuthorized: boolean = false;
+  password: string = '';
+  apiUrl = 'https://healthcare-api-server.vercel.app/api/admin/dashboard';
 
   constructor(private http: HttpClient) {}
 
   ngOnInit() {
-    this.http.get(this.apiUrl).subscribe((data: any) => {
+    if(this.isAuthorized)
+    {
+      this.fetchRequests();
+    }
+  }
+
+  login()
+  {
+    const adminKey: string = 'admin';
+    if(this.password === adminKey)
+    {
+      this.isAuthorized = true;
+      this.fetchRequests();
+
+    }
+    else
+    {
+      alert('Unauthorized: Incorrect credentials');
+      this.password = '';
+    }
+
+  }
+
+  fetchRequests() {
+    this.http.get<any[]>(`${this.apiUrl}/dashboard`).subscribe(data => {
       this.requests = data.requests;
     });
   }
 
-  fetchRequests() {
-    this.http.get<any[]>(`${this.apiUrl}/requests`).subscribe(data => {
-      this.requests = data;
-    });
-  }
-
   updateRequestStatus(requestId: string, newStatus: string) {
-    this.http.patch(`${this.apiUrl}/requests/${requestId}`, { status: newStatus })
+    const params = new HttpParams().set('new_status', newStatus);
+
+    this.http.patch(`${this.apiUrl}/request/${requestId}`, {}, { params })
       .subscribe({
         next: () => {
-          // 2. Refresh the local list to show the new "indicator" color
-          this.fetchRequests();
+          this.fetchRequests(); // Refresh to show new status indicator
           console.log(`Request ${requestId} updated to ${newStatus}`);
         },
         error: (err) => console.error('Update failed', err)
       });
+  }
+
+  deleteRequest(requestId: string)
+  {
+    if(confirm('Permanently delete this request?'))
+    {
+      this.http.delete(`${this.apiUrl}/request/${requestId}`)
+      .subscribe({
+        next: () => {
+          this.requests = this.requests.filter(req => req.id !== requestId);
+          console.log(`Deleted: ${requestId}`);
+        },
+        error: (err) => console.error('Delete failed', err)
+      });
+    }
   }
 }
 
