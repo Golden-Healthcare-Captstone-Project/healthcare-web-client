@@ -19,7 +19,7 @@ export class ApiService {
     return this.http.post(`${this.baseUrl}/requests/`, data);
   }
 
-  getMockFeed(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/mockfeed`);
+  getSocialFeed(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/social-feed`);
   }
 }

@@ -1,5 +1,6 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ApiService } from '../../services/api.service';
 
 type SocialLink = {
   label: string;
@@ -15,8 +16,10 @@ type SocialLink = {
   templateUrl: './social-media-links.component.html',
   styleUrl: './social-media-links.component.css'
 })
-export class SocialMediaLinksComponent {
-  readonly links: SocialLink[] = [
+export class SocialMediaLinksComponent implements OnInit {
+  constructor(private apiService: ApiService) {}
+
+    readonly links: SocialLink[] = [
     {
       label: 'Facebook',
       handle: '@goldenhealthcare',
@@ -34,4 +37,18 @@ export class SocialMediaLinksComponent {
       ]
     }
   ];
+  ngOnInit(): void {
+    this.apiService.getSocialFeed().subscribe({
+      next: (response) => {
+        const facebook = this.links.find(link => link.label === 'Facebook');
+      
+        if (facebook && response.status === 'blocked') {
+          facebook.updates = [response.message];
+        }
+      },
+      error: (error) => {
+        console.error('Social feed error:', error);
+      }
+    });
+  }
 }
